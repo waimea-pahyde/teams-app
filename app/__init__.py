@@ -3,21 +3,26 @@
 #===========================================================
 
 from flask import Flask, render_template, request, redirect
-from supabase import create_client
+from libsql_client import create_client
 from dotenv import load_dotenv
 import os
 
 
-# Load the Supabase API keys from the .env file
+# Load the Turso API keys from the .env file
 load_dotenv()
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-
-# Create a Supabase client
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+TURSO_URL = os.getenv("TURSO_URL")
+TURSO_KEY = os.getenv("TURSO_KEY")
 
 # Create the app
 app = Flask(__name__)
+
+
+#-----------------------------------------------------------
+# Connect to the Turso DB and return the connection
+#-----------------------------------------------------------
+def connectDB():
+    client = create_client(url=TURSO_URL, auth_token=TURSO_KEY)
+    return client
 
 
 #-----------------------------------------------------------
@@ -26,11 +31,11 @@ app = Flask(__name__)
 @app.get("/")
 def index():
     # Get all the things from the DB
-    response = supabase.table("things").select().execute()
-    records = response.data
+    client = connectDB()
+    result = client.execute("SELECT * FROM things")
 
     # Show the page with the DB data
-    return render_template("pages/home.jinja", things=records)
+    return render_template("pages/home.jinja", things=result.rows)
 
 
 #-----------------------------------------------------------
@@ -43,10 +48,8 @@ def add():
     price = request.form["price"]
 
     # Add the thing to the DB
-    supabase.table("things").insert({
-        "name": name,
-        "price": price
-    }).execute()
+    client = connectDB()
+    client.execute("INSERT INTO things (name, price) VALUES (?, ?)", [name, price])
 
     # Go back to the home page
     return redirect("/")
@@ -58,7 +61,8 @@ def add():
 @app.get("/delete/<int:itemId>")
 def delete(itemId):
     # Delete the thing from the DB
-    supabase.table("things").delete().eq("id", itemId).execute()
+    client = connectDB()
+    client.execute("DELETE FROM things WHERE id=?", [itemId])
 
     # Go back to the home page
     return redirect("/")

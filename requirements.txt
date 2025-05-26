@@ -5,8 +5,8 @@
 # Flask framework
 Flask
 
-# Supabase API library
-supabase
+# Turso API library
+libsql-client
 
 # Environment Variables
 python-dotenv

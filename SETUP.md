@@ -15,17 +15,13 @@
 
 [PicoCSS](https://picocss.com/)
 
-### Supabase
+### Turso
 
-[Supabase](https://supabase.com/)
+[Turso](https://turso.tech/)
 
-- PostgreSQL db
-- Storage 'buckets' (e.g. for images)
+- SQLite DB
 
-[supabase-py](https://github.com/supabase/supabase-py) - Python client for Supabase
-
-[Python API Reference](https://supabase.com/docs/reference/python/introduction)
-
+[libsql-client](https://github.com/tursodatabase/libsql-client-py) - Python client for Turso
 
 
 
@@ -42,7 +38,6 @@ To support setting up and developing with the Flask server, add the following ex
 
 You should also have the following (just to n=make life better):
 
-- **SQLite3 Editor** (for databases)
 - **Code Spell Checker** (because speeling is hard!)
 - **Error Lens** (places error messages inline, next to code)
 
@@ -95,7 +90,9 @@ flask run --debug
 ```
 
 
-## Setting Up a Supabase Database
+## Setting Up a Turso Database
+
+TODO
 
 ### Account
 
@@ -145,6 +142,8 @@ Deploying to **Render**, an external web app host, is pretty simple. Once setup,
     - Build Command: `pip install -r requirements.txt`
     - Start Command: `flask run --host=0.0.0.0 --port=10000`
     - Instance Type: **Free**
+
+    - TODO - Turso secrets
 
 2. **Deploy** the web service, and it should be good to go!
 
