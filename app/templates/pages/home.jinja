@@ -1,0 +1,70 @@
+{#=====================================================
+  Home page
+  - Hero style greeting banner
+  - List of things passed in as 'things' array
+  - Form for adding a new thing
+=====================================================#}
+
+{% extends 'pages/base.jinja' %}
+
+
+{% block title %}
+
+    Flask Demo
+
+{% endblock %}
+
+
+{% block content %}
+
+    <section id="hero">
+        <h1>Example Web App</h1>
+    </section>
+
+    <section id="things">
+
+        <h2>Things</h2>
+
+        {% if things %}
+
+            <ul>
+                {% for thing in things %}
+                    <li>
+                        {{ thing['name'] }}, ${{ thing['price'] }}
+                        <a href="/delete/{{ thing['id'] }}">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+
+            <p>None!</p>
+
+        {% endif %}
+
+
+        <form action="/add" method="POST">
+            <fieldset role="group">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Name of new thing"
+                    required
+                >
+                <input
+                    type="number"
+                    name="price"
+                    min="0"
+                    placeholder="Price in dollars"
+                    required
+                >
+                <input type="submit" value="Add Thing">
+            </fieldset>
+        </form>
+
+
+    </section>
+
+
+{% endblock %}
+

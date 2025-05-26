@@ -1,0 +1,29 @@
+/*=====================================================
+  User stylesheet - Building upon PicoCSS
+=====================================================*/
+
+
+/* HERO -------------------------------------------- */
+
+#hero h1 {
+    background-color: var(--pico-primary-background);
+    color: var(--pico-primary-inverse);
+    font-size: 4rem;
+    padding: 0.5em;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+
+/* ABOUT INFO -------------------------------------------- */
+
+#info {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+#info article {
+    flex: 1;
+}
+

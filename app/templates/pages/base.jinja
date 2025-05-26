@@ -1,0 +1,57 @@
+{#=====================================================
+  Base template
+  - Used as the basis of all pages
+  - Uses a light colour theme by default
+  - Provides a main heading and navigation menu
+  - Has blocks for the page title and main content
+  - Loads PicoCSS
+  - Loads a user stylesheet
+=====================================================#}
+
+<!DOCTYPE html>
+
+<html lang="en" data-theme="light">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>{% block title %}{% endblock %}</title>
+
+    <link rel="icon" href="/static/images/icon.svg">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.slate.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><strong><a href="/">Flask App Demo</a></strong></li>
+            </ul>
+
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <footer>
+        <p>This is a simple <a href="/about">Flask</a> app, setup with some example pages and styling. It can be used as the basis of your own web app.</p>
+    </section>
+
+</footer>
+</body>
+
+</html>
+

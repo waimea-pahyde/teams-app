@@ -1,0 +1,12 @@
+#--------------------------------------
+# Required packages to install via pip
+#--------------------------------------
+
+# Flask framework
+Flask
+
+# Supabase API library
+supabase
+
+# Environment Variables
+python-dotenv
