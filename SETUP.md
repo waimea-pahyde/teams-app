@@ -6,7 +6,6 @@
 
 [Flask](https://flask.palletsprojects.com)
 
-
 ### Jinja2
 
 [Jinja2](https://jinja.palletsprojects.com/templates/)
@@ -96,6 +95,7 @@ TODO
 
 ### Account
 
+Go to [Turso](https://turso.tech/) and login with your **GitHub** credentials
 
 ### Create
 

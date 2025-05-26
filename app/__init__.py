@@ -3,26 +3,13 @@
 #===========================================================
 
 from flask import Flask, render_template, request, redirect
-from libsql_client import create_client
-from dotenv import load_dotenv
-import os
-
-
-# Load the Turso API keys from the .env file
-load_dotenv()
-TURSO_URL = os.getenv("TURSO_URL")
-TURSO_KEY = os.getenv("TURSO_KEY")
+from app.db import init_db, connect_db
 
 # Create the app
 app = Flask(__name__)
 
-
-#-----------------------------------------------------------
-# Connect to the Turso DB and return the connection
-#-----------------------------------------------------------
-def connectDB():
-    client = create_client(url=TURSO_URL, auth_token=TURSO_KEY)
-    return client
+# Setup the database
+init_db()
 
 
 #-----------------------------------------------------------
@@ -31,7 +18,7 @@ def connectDB():
 @app.get("/")
 def index():
     # Get all the things from the DB
-    client = connectDB()
+    client = connect_db()
     result = client.execute("SELECT * FROM things")
 
     # Show the page with the DB data
@@ -48,7 +35,7 @@ def add():
     price = request.form["price"]
 
     # Add the thing to the DB
-    client = connectDB()
+    client = connect_db()
     client.execute("INSERT INTO things (name, price) VALUES (?, ?)", [name, price])
 
     # Go back to the home page
@@ -61,7 +48,7 @@ def add():
 @app.get("/delete/<int:itemId>")
 def delete(itemId):
     # Delete the thing from the DB
-    client = connectDB()
+    client = connect_db()
     client.execute("DELETE FROM things WHERE id=?", [itemId])
 
     # Go back to the home page
@@ -72,7 +59,6 @@ def delete(itemId):
 # About page route
 #-----------------------------------------------------------
 @app.get("/about")
-@app.get("/about/")
 def about():
     return render_template("pages/about.jinja")
 

@@ -51,6 +51,27 @@
     </section>
 
 </footer>
+
+
+<script>
+    document.querySelectorAll('form:has(button)').forEach(form => {
+        const button = form.querySelector('button')
+        form.addEventListener('submit', (e) => {
+            // Already submitting?
+            if (button.ariaBusy === true) {
+                // Prevent re-submit
+                e.preventDefault()
+            }
+            else {
+                // Mark as busy
+                button.ariaBusy = true
+                button.disabled = true
+                button.innerText = 'Please Wait...'
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>
