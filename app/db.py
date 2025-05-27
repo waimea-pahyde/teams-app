@@ -7,21 +7,16 @@ from dotenv import load_dotenv
 import os
 
 
-# Load environment variables from the .env file
+# Load Turso environment variables from the .env file
 load_dotenv()
-
-# Turso API keys
 TURSO_URL = os.getenv("TURSO_URL")
 TURSO_KEY = os.getenv("TURSO_KEY")
-
-# Local dev, or delopyed?
-FLASK_ENV = os.getenv("FLASK_ENV")
 
 # Define the locations of our DB files
 DB_FOLDER   = os.path.join(os.path.dirname(__file__), "db")
 SCHEMA_FILE = os.path.join(DB_FOLDER, "schema.sql")
 
-# To hold the DB connection
+# Track the DB connection
 client = None
 
 
@@ -41,9 +36,10 @@ def connect_db():
 #-----------------------------------------------------------
 # Initialise the DB from the schema file
 #-----------------------------------------------------------
-def init_db():
-    # Only initialise if developing locally
-    if FLASK_ENV == "development":
+def init_db(app):
+    # Only initialise if developing locally (flask run --debug)
+    if app.debug == True:
+        print("YOOOOOO")
         # Connect to DB
         client = connect_db()
         # Open the DB schema and run

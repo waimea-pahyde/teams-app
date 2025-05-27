@@ -9,7 +9,7 @@ from app.db import init_db, connect_db
 app = Flask(__name__)
 
 # Setup the database
-init_db()
+init_db(app)
 
 
 #-----------------------------------------------------------

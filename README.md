@@ -38,3 +38,4 @@ See [SETUP.md](SETUP.md) for details of how to install and run the app locally f
 
 A demo of this site is hosted [here](https://flask-turso-basic-app-setup.onrender.com)
 
+*Note: This is a read-only version to avoid the DB being spammed!*
