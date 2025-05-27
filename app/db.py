@@ -39,7 +39,6 @@ def connect_db():
 def init_db(app):
     # Only initialise if developing locally (flask run --debug)
     if app.debug == True:
-        print("YOOOOOO")
         # Connect to DB
         client = connect_db()
         # Open the DB schema and run
