@@ -10,6 +10,8 @@ This is template for a simple [Flask](https://flask.palletsprojects.com) applica
     - **static** folder - Files to be served as-is
         - **css** folder
             - **styles.css** - A user stylesheet
+        - **js** folder
+            - **utils.js** - Utility functions
         - **images** folder
             - **icon.svg** - Site favicon
             - *other example images*
@@ -24,7 +26,7 @@ This is template for a simple [Flask](https://flask.palletsprojects.com) applica
 - **requirements.txt** - Defines the Python modules needed
 
 - **.env** - Environment variable, e.g. Turso secrets
-- **.env-example** - Demo .env
+- **.env-example** - Demo .env file
 - **.gitignore** - Prevents venv and .env from being pushed
 
 

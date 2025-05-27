@@ -30,8 +30,8 @@
             <ul>
                 {% for thing in things %}
                     <li>
-                        {{ thing['name'] }}, ${{ thing['price'] }}
-                        <a href="/delete/{{ thing['id'] }}">Delete</a>
+                        {{ thing.name }}, ${{ thing.price }}
+                        <a href="/delete/{{ thing.id }}">Delete</a>
                     </li>
                 {% endfor %}
             </ul>

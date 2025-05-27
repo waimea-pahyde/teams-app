@@ -6,6 +6,7 @@
   - Has blocks for the page title and main content
   - Loads PicoCSS
   - Loads a user stylesheet
+  - Loads JS utility functions
 =====================================================#}
 
 <!DOCTYPE html>
@@ -16,9 +17,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" href="/static/images/icon.svg">
+
 	<title>{% block title %}{% endblock %}</title>
 
-    <link rel="icon" href="/static/images/icon.svg">
+    <script src="/static/js/utils.js"></script>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.slate.min.css">
     <link rel="stylesheet" href="/static/css/styles.css">
@@ -48,29 +51,7 @@
 
     <footer>
         <p>This is a simple <a href="/about">Flask</a> app, setup with some example pages and styling. It can be used as the basis of your own web app.</p>
-    </section>
-
-</footer>
-
-
-<script>
-    document.querySelectorAll('form:has(button)').forEach(form => {
-        const button = form.querySelector('button')
-        form.addEventListener('submit', (e) => {
-            // Already submitting?
-            if (button.ariaBusy === true) {
-                // Prevent re-submit
-                e.preventDefault()
-            }
-            else {
-                // Mark as busy
-                button.ariaBusy = true
-                button.disabled = true
-                button.innerText = 'Please Wait...'
-            }
-        });
-    });
-</script>
+    </footer>
 
 </body>
 

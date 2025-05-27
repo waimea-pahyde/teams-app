@@ -16,15 +16,20 @@ TURSO_KEY = os.getenv("TURSO_KEY")
 DB_FOLDER   = os.path.join(os.path.dirname(__file__), "db")
 SCHEMA_FILE = os.path.join(DB_FOLDER, "schema.sql")
 
+# To hold the DB connection
 client = None
+
 
 #-----------------------------------------------------------
 # Connect to the Turso DB and return the connection
 #-----------------------------------------------------------
 def connect_db():
     global client
+    # Not connected yet?
     if client == None:
+        # No, so make the connection to Turso
         client = create_client_sync(url=TURSO_URL, auth_token=TURSO_KEY)
+    # Pass the connection back
     return client
 
 
@@ -32,7 +37,9 @@ def connect_db():
 # Initialise the DB from the schema file
 #-----------------------------------------------------------
 def init_db():
+    # Connect to DB
     client = connect_db()
+    # Open the DB schema and run
     with open(SCHEMA_FILE, "r") as f:
         client.execute(f.read())
 
