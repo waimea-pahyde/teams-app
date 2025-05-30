@@ -17,55 +17,22 @@
 
 {% block content %}
 
-    <section id="hero">
-        <h1>Example Web App</h1>
-    </section>
+    <h1>Flask Demo App with Turso DB</h1>
 
-    <section id="things">
+    <p>This is a simple Flask app that connects to a Turso database to save and retrieve data. This can be used as the basis of your web app.</p>
 
-        <h2>Things</h2>
+    <p>It includes...</p>
 
-        {% if things %}
+    <ul>
+        <li>Example routes</li>
+        <li>Example static pages</li>
+        <li>Missing page and server error pages</li>
+        <li>DB connection and error handling</li>
+        <li>Example CRUD actions: Create and Delete</li>
+        <li>Flash messages for information</li>
+    </ul>
 
-            <ul>
-                {% for thing in things %}
-                    <li>
-                        {{ thing.name }}, ${{ thing.price }}
-                        <a href="/delete/{{ thing.id }}">Delete</a>
-                    </li>
-                {% endfor %}
-            </ul>
-
-        {% else %}
-
-            <p>None!</p>
-
-        {% endif %}
-
-
-        <form action="/add" method="POST">
-            <fieldset>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Name of new thing"
-                    required
-                >
-                <input
-                    type="number"
-                    name="price"
-                    min="0"
-                    placeholder="Price in dollars"
-                    required
-                >
-
-                <button>Add Thing</button>
-            </fieldset>
-        </form>
-
-
-    </section>
-
+    <a href="/things" role="button">Go to the Things...</a>
 
 {% endblock %}
 

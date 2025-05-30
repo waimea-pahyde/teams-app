@@ -7,6 +7,7 @@
   - Loads PicoCSS
   - Loads a user stylesheet
   - Loads JS utility functions
+  - Includes block for flash messages
 =====================================================#}
 
 <!DOCTYPE html>
@@ -37,10 +38,12 @@
 
             <ul>
                 <li><a href="/">Home</a></li>
+                <li><a href="/things">Things</a></li>
                 <li><a href="/about">About</a></li>
             </ul>
         </nav>
     </header>
+
 
     <main>
 
@@ -49,9 +52,8 @@
 
     </main>
 
-    <footer>
-        <p>This is a simple <a href="/about">Flask</a> app, setup with some example pages and styling. It can be used as the basis of your own web app.</p>
-    </footer>
+
+    {% include "components/messages.jinja" %}
 
 </body>
 

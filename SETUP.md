@@ -95,7 +95,7 @@ Go to [Turso](https://turso.tech/) and login with your **GitHub** credentials. Y
 2. Use the **Edit Data** function within Turso to setup columns, add records, etc. (the Drizzle Studio editor is the most straightforward to use). Or you can skip this and instead setup and initialise the database via the Flask app **init_db()** function.
 
 
-### Generate API Access Token and URL
+### API Access Token and URL
 
 1. From the Turso dashboard, click the three-dot menu next to the database and select **Create Token**:
 

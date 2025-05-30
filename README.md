@@ -16,6 +16,9 @@ This is template for a simple [Flask](https://flask.palletsprojects.com) applica
             - **icon.svg** - Site favicon
             - *other example images*
     - **templates** folder
+        - **components** folder
+            - **messages.jinja** - Block to display flash messages
+            - *other component templates*
         - **pages** folder
             - **base.jinja** - The base template for all pages
             - *other templates for specific pages*

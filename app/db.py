@@ -2,10 +2,12 @@
 # Database Related Functions
 #===========================================================
 
-from libsql_client import create_client_sync
+from libsql_client import create_client_sync, LibsqlError
 from contextlib import contextmanager
 from dotenv import load_dotenv
+import functools
 import os
+from app.errors import server_error
 
 
 # Load Turso environment variables from the .env file
@@ -23,39 +25,48 @@ SCHEMA_FILE = os.path.join(DB_FOLDER, "schema.sql")
 #-----------------------------------------------------------
 @contextmanager
 def connect_db():
+    client = None
     try:
         # Attempt to connect Turso DB, and pass back the connection
         client = create_client_sync(url=TURSO_URL, auth_token=TURSO_KEY)
         yield client
 
-    except Exception as e:
-        # Something went wrong!
-        print(f"Database connection failed: {e}")
-        yield None
-
     finally:
         # Properly close the connection when done
-        if "client" in locals() and client is not None:
+        if client is not None:
             client.close()
+
+
+#-----------------------------------------------------------
+# A decorator function to handle errors connecting to the DB
+#-----------------------------------------------------------
+def handle_db_errors(view_func):
+    @functools.wraps(view_func)
+    def wrapper(*args, **kwargs):
+        try:
+            # Attempt to run the given function
+            return view_func(*args, **kwargs)
+        except LibsqlError as e:
+            # Caught a DB related error
+            print(f"Database error: {e}")
+            return server_error("A database error occurred")
+        except Exception as e:
+            # Caught a general error
+            print(f"Unexpected error: {e}")
+            return server_error("An unexpected server error occurred")
+    return wrapper
 
 
 #-----------------------------------------------------------
 # Initialise the DB from the schema file
 #-----------------------------------------------------------
+@handle_db_errors
 def init_db(app):
     # Only initialise if developing locally (flask run --debug)
     if app.debug == True:
         # Connect to DB
         with connect_db() as client:
-            if client:
-                try:
-                    # Open the DB schema and run
-                    with open(SCHEMA_FILE, "r") as f:
-                        client.execute(f.read())
+            # Open the DB schema and run
+            with open(SCHEMA_FILE, "r") as f:
+                client.execute(f.read())
 
-                except Exception as e:
-                    # Something went wrong!
-                    print(f"Database initialization failed: {e}")
-
-            else:
-                print("Database connection failed during initialization!")

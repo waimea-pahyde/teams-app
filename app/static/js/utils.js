@@ -1,11 +1,14 @@
 //=====================================================
-//  Utility functions
+//  Utility front-end functions
 //=====================================================
+
 
 // Trigger when page loads...
 window.onload = (event) => {
 
-    // Prevent duplicate submission for forms
+    //--------------------------------------------------
+    // Prevent duplicate submission of forms
+    //--------------------------------------------------
     document.querySelectorAll('form:has(button)').forEach(form => {
         // Get the form's button
         const button = form.querySelector('button')
