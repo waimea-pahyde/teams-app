@@ -37,6 +37,19 @@ This is template for a simple [Flask](https://flask.palletsprojects.com) applica
 - **.gitignore** - Prevents venv and .env from being pushed
 
 
+## Demo Database Schema
+
+The database used for this demo has the following schema:
+
+```sql
+CREATE TABLE `things` (
+    `id`         INTEGER PRIMARY KEY AUTOINCREMENT,
+    `name`       TEXT    NOT NULL,
+    `price`      INTEGER NOT NULL DEFAULT 0
+);
+```
+
+
 ## Project Setup and Deployment
 
 See [SETUP.md](SETUP.md) for details of how to install and run the app locally for development, how to setup and configure the [Turso](https://turso.tech/) database, and how to deploy the app to [Render](https://render.com/) for hosting.
