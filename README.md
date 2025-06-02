@@ -5,16 +5,16 @@ This is template for a simple [Flask](https://flask.palletsprojects.com) applica
 ## Project Structure
 
 - **app** folder
-    - **db** folder - Files relating to the database
-        - **schema.sql** - The SQL to create your database
+
     - **static** folder - Files to be served as-is
         - **css** folder
             - **styles.css** - A user stylesheet
-        - **js** folder
-            - **utils.js** - Utility functions
         - **images** folder
             - **icon.svg** - Site favicon
             - *other example images*
+        - **js** folder
+            - **utils.js** - Utility functions
+
     - **templates** folder
         - **components** folder
             - **messages.jinja** - Block to display flash messages
@@ -23,8 +23,12 @@ This is template for a simple [Flask](https://flask.palletsprojects.com) applica
             - **base.jinja** - The base template for all pages
             - *other templates for specific pages*
 
+    - **helpers** folder - Utility functions
+        - **db.py** - Functions for database access
+        - **errors.py** - Functions for error reporting
+        - **session.py** - Functions to manage session data
+
     - **\_\_init__.py** - App launcher code
-    - **db.py** - Functions for database setup and access
 
 - **requirements.txt** - Defines the Python modules needed
 

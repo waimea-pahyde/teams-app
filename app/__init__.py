@@ -2,23 +2,22 @@
 # App Creation and Launch
 #===========================================================
 
-from flask import Flask, render_template, request, flash, session, redirect
-from app.db import init_db, connect_db, handle_db_errors
-from app.errors import register_error_handlers
+from flask import Flask, render_template, request, flash, redirect
 import html
+
+from app.helpers.session import init_session
+from app.helpers.db import connect_db, handle_db_errors
+from app.helpers.errors import register_error_handlers, not_found_error
 
 
 # Create the app
 app = Flask(__name__)
 
-# Create a session for messages, etc.
-app.secret_key = "your-secret-key"
+# Setup a session for messages, etc.
+init_session(app)
 
 # Handle 404 and 500 errors
 register_error_handlers(app)
-
-# Setup the database
-init_db(app)
 
 
 #-----------------------------------------------------------
@@ -45,7 +44,7 @@ def about():
 def show_all_things():
     with connect_db() as client:
         # Get all the things from the DB
-        sql = "SELECT * FROM things ORDER BY name ASC"
+        sql = "SELECT id, name FROM things ORDER BY name ASC"
         result = client.execute(sql)
         things = result.rows
 
@@ -61,7 +60,7 @@ def show_all_things():
 def show_one_thing(id):
     with connect_db() as client:
         # Get the things from the DB
-        sql = "SELECT * FROM things WHERE id=?"
+        sql = "SELECT id, name, price FROM things WHERE id=?"
         values = [id]
         result = client.execute(sql, values)
 
@@ -73,7 +72,7 @@ def show_one_thing(id):
 
         else:
             # No, so show error
-            return render_template("pages/404.jinja"), 404
+            return not_found_error()
 
 
 #-----------------------------------------------------------
