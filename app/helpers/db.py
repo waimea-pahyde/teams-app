@@ -5,9 +5,7 @@
 from libsql_client import create_client_sync, LibsqlError
 from contextlib import contextmanager
 from dotenv import load_dotenv
-from functools import wraps
 from os import getenv, path
-from app.helpers.errors import server_error
 
 
 # Load Turso environment variables from the .env file
