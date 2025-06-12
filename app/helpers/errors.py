@@ -59,6 +59,9 @@ def register_error_handlers(app):
                     app_frame = frame
                     break
 
+            print(f"Error: {type(e).__name__}")
+            print(f"Details: {str(e)}")
+
             error_msg = f"""
                 <table class="error">
                     <tr><th>Error</th><td>{type(e).__name__}</td></tr>
@@ -68,6 +71,11 @@ def register_error_handlers(app):
             # Do we have a matching error frame?
             if app_frame:
                 filename = app_frame.filename.replace(app.root_path, "")
+
+                print(f"Code: {app_frame.line}")
+                print(f"File: {filename}")
+                print(f"Line: {app_frame.lineno}")
+
                 error_msg += f"""
                     <tr><th>Code</th><td>{app_frame.line}</td></tr>
                     <tr><th>File</th><td>{filename}</td></tr>
@@ -75,8 +83,6 @@ def register_error_handlers(app):
                 """
 
             error_msg += "</table>"
-
-            print(app.root_path)
 
             return server_error(error_msg)
 

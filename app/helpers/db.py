@@ -26,12 +26,25 @@ def connect_db():
     client = None
 
     try:
-        # Attempt to connect Turso DB, and pass back the connection
         client = create_client_sync(url=TURSO_URL, auth_token=TURSO_KEY)
+
+        # Wrap the execute method to add logging
+        original_execute = client.execute
+
+        def logged_execute(sql, *args, **kwargs):
+            from flask import current_app as app
+            if app and app.debug:
+                print(f"    DB SQL: {sql} | Params: {args if args else ''}")
+            result = original_execute(sql, *args, **kwargs)
+            if app and app.debug:
+                print(f"      Rows: {getattr(result, 'rows', result)}")
+            return result
+
+        client.execute = logged_execute
+
         yield client
 
     finally:
-        # Properly close the connection when done
         if client is not None:
             client.close()
 
