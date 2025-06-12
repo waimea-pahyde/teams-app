@@ -2,9 +2,9 @@
 # Logging Middleware
 #===========================================================
 
-from flask import request
+from flask import request, session
 from dotenv import load_dotenv
-from os import getenv, path
+from os import getenv
 from colorama import Fore, init
 from datetime import datetime
 import logging
@@ -15,6 +15,7 @@ init(autoreset=True)
 # Logging colours
 REQ_COL = Fore.CYAN
 ROUTE_COL = Fore.BLUE
+SESS_COL = Fore.YELLOW
 
 # Load Flask and Turso environment variables from the .env file
 load_dotenv()
@@ -73,6 +74,9 @@ def init_logging(app):
             # Any files uploaded
             if request.files:
                 print(f"             Files: {ROUTE_COL}{dict(request.files)}")
+            # Any session values
+            if session:
+                print(f"           Session: {SESS_COL}{dict(session)}")
 
 
     #--------------------------------------------------
