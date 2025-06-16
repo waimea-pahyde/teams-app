@@ -46,7 +46,8 @@ def show_all_things():
     with connect_db() as client:
         # Get all the things from the DB
         sql = "SELECT id, name FROM things ORDER BY name ASC"
-        result = client.execute(sql)
+        params = []
+        result = client.execute(sql, params)
         things = result.rows
 
         # And show them on the page
