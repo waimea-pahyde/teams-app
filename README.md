@@ -27,6 +27,7 @@ This is template for a simple [Flask](https://flask.palletsprojects.com) applica
         - **db.py** - Functions for database access
         - **errors.py** - Functions for error reporting
         - **session.py** - Functions to manage session data
+        - **time.py** - Functions to help format timestamps
 
     - **\_\_init__.py** - App launcher code
 
