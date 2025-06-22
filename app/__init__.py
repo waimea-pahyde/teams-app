@@ -30,7 +30,7 @@ def getTeams():
     
       with connect_db() as client:
         # Get all the things from the DB
-        sql = "SELECT name FROM teams ORDER BY name ASC"
+        sql = "SELECT code, name FROM teams ORDER BY name ASC"
         
         params = []
         
@@ -59,7 +59,7 @@ def about():
 def show_all_things():
     with connect_db() as client:
         # Get all the things from the DB
-        sql = "SELECT id, name FROM things ORDER BY name ASC"
+        sql = "SELECT code, name FROM things ORDER BY name ASC"
         params = []
         result = client.execute(sql, params)
         things = result.rows
@@ -71,19 +71,19 @@ def show_all_things():
 #-----------------------------------------------------------
 # Thing page route - Show details of a single thing
 #-----------------------------------------------------------
-@app.get("/thing/<int:id>")
+@app.get("/team/<string:id>")
 def show_one_thing(id):
     with connect_db() as client:
         # Get the thing details from the DB
-        sql = "SELECT id, name, price FROM things WHERE id=?"
+        sql = "SELECT code, name, description, website, players FROM teams WHERE code=?"
         params = [id]
         result = client.execute(sql, params)
 
         # Did we get a result?
         if result.rows:
             # yes, so show it on the page
-            thing = result.rows[0]
-            return render_template("pages/thing.jinja", thing=thing)
+            team = result.rows[0]
+            return render_template("pages/team.jinja", team=team)
 
         else:
             # No, so show error
@@ -97,35 +97,35 @@ def show_one_thing(id):
 def add_a_thing():
     # Get the data from the form
     name  = request.form.get("name")
-    price = request.form.get("price")
+    code = request.form.get("code")
 
     # Sanitise the text inputs
     name = html.escape(name)
 
     with connect_db() as client:
         # Add the thing to the DB
-        sql = "INSERT INTO things (name, price) VALUES (?, ?)"
-        params = [name, price]
+        sql = "INSERT INTO teams (code, name) VALUES (?, ?)"
+        params = [code, name]
         client.execute(sql, params)
 
         # Go back to the home page
         flash(f"Thing '{name}' added", "success")
-        return redirect("/things")
+        return redirect("/")
 
 
 #-----------------------------------------------------------
 # Route for deleting a thing, Id given in the route
 #-----------------------------------------------------------
-@app.get("/delete/<int:id>")
-def delete_a_thing(id):
-    with connect_db() as client:
-        # Delete the thing from the DB
-        sql = "DELETE FROM things WHERE id=?"
-        params = [id]
-        client.execute(sql, params)
+# @app.get("/delete/<int:id>")
+# def delete_a_thing(id):
+#     with connect_db() as client:
+#         # Delete the thing from the DB
+#         sql = "DELETE FROM things WHERE id=?"
+#         params = [id]
+#         client.execute(sql, params)
 
-        # Go back to the home page
-        flash("Thing deleted", "success")
-        return redirect("/things")
+#         # Go back to the home page
+#         flash("Thing deleted", "success")
+#         return redirect("/things")
 
 

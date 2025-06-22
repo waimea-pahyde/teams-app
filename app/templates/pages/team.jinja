@@ -1,0 +1,54 @@
+{#=====================================================
+  Teams page ok
+  - Shows details of a single TEA,M
+  - Has a delete link to remove it...
+=====================================================#}
+
+{% extends 'pages/base.jinja' %}
+
+
+{% block title %}
+
+    Team
+
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>{{team.name}}</h1>
+
+
+    <article>
+
+        <p>{{team.description}}</p>
+        <p>website: {{team.website}}</p>
+
+        <h3> Players!</h3>
+       
+        <ul>
+
+    {% for player in players %}
+
+<li>
+                    {{team.players}}
+    </li>            
+      
+
+            {% else %}
+
+                <p>None!</p>
+
+
+            {% endfor %}
+
+
+      
+
+    </article>
+
+
+    <a role="button" href="/">Back to Thing List</a>
+
+{% endblock %}
+
